@@ -7,10 +7,6 @@ package com.genealogie.controllers;
 
 import com.genealogie.entity.Personne;
 import com.genealogie.respositories.IArbreGenealogiqueRepository;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,18 +32,8 @@ public class ArbreGenealogiqueAscendantController {
     
     @GetMapping(value = "/{id}")
     public List<Personne> getArbreGenealogique(@PathVariable Integer id) {
-        List<Personne> list = new ArrayList<>();
-        logger.info("Entré dans la méthode GET");
-        logger.info("l'id = " + id);
-        list = iArbreGenealogiqueRepo.getArbreGenealogiqueAscendant(id);
-        Collections.sort(list, new Comparator<Personne>() {
-            @Override
-            public int compare(Personne o1, Personne o2) {
-                return o1.getPersonne_id().compareTo(o2.getPersonne_id());
-            }
-        });
-        logger.info("Liste triée" + list);
-        return list;
+        logger.info("L'utilsateur souhaite connaitre l'arbre généalogique de la personne avec id = " + id);
+        return iArbreGenealogiqueRepo.getArbreGenealogiqueAscendant(id);
     }
     
 }
