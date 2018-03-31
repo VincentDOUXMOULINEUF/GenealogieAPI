@@ -9,7 +9,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -32,11 +35,18 @@ public class Personne implements Serializable {
     private String personne_date_naissance;
     private String personne_code_postal_naissance;
     private String personne_ville_naissance;
+    private String personne_metier;
     private String personne_date_deces;
     private String personne_code_postal_deces;
     private String personne_ville_deces;
-    private Integer personne_id_pere;
-    private Integer personne_id_mere;
+    
+    @OneToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name = "personne_id_pere")
+    private Personne pere ;
+    
+    @OneToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name = "personne_id_mere")
+    private Personne mere;
 
     public Integer getPersonne_id() {
         return personne_id;
@@ -110,6 +120,14 @@ public class Personne implements Serializable {
         this.personne_ville_naissance = personne_ville_naissance;
     }
 
+    public String getPersonne_metier() {
+        return personne_metier;
+    }
+
+    public void setPersonne_metier(String personne_metier) {
+        this.personne_metier = personne_metier;
+    }
+    
     public String getPersonne_date_deces() {
         return personne_date_deces;
     }
@@ -134,25 +152,25 @@ public class Personne implements Serializable {
         this.personne_ville_deces = personne_ville_deces;
     }
 
-    public Integer getPersonne_id_pere() {
-        return personne_id_pere;
+    public Personne getPere() {
+        return pere;
     }
 
-    public void setPersonne_id_pere(Integer personne_id_pere) {
-        this.personne_id_pere = personne_id_pere;
+    public void setPere(Personne pere) {
+        this.pere = pere;
     }
 
-    public Integer getPersonne_id_mere() {
-        return personne_id_mere;
+    public Personne getMere() {
+        return mere;
     }
 
-    public void setPersonne_id_mere(Integer personne_id_mere) {
-        this.personne_id_mere = personne_id_mere;
+    public void setMere(Personne mere) {
+        this.mere = mere;
     }
 
     @Override
     public String toString() {
-        return "Personne{" + "personne_id=" + personne_id + ", personne_nom=" + personne_nom + ", personne_nom_naissance=" + personne_nom_naissance + ", personne_prenom=" + personne_prenom + ", personne_prenom_second=" + personne_prenom_second + ", personne_prenom_troisieme=" + personne_prenom_troisieme + ", personne_date_naissance=" + personne_date_naissance + ", personne_code_postal_naissance=" + personne_code_postal_naissance + ", personne_ville_naissance=" + personne_ville_naissance + ", personne_date_deces=" + personne_date_deces + ", personne_code_postal_deces=" + personne_code_postal_deces + ", personne_ville_deces=" + personne_ville_deces + ", personne_id_pere=" + personne_id_pere + ", personne_id_mere=" + personne_id_mere + '}';
+        return "Personne{" + "personne_id=" + personne_id + ", personne_nom=" + personne_nom + ", personne_nom_naissance=" + personne_nom_naissance + ", personne_prenom=" + personne_prenom + ", personne_prenom_second=" + personne_prenom_second + ", personne_prenom_troisieme=" + personne_prenom_troisieme + ", personne_date_naissance=" + personne_date_naissance + ", personne_code_postal_naissance=" + personne_code_postal_naissance + ", personne_ville_naissance=" + personne_ville_naissance + ", personne_metier=" + personne_metier + ", personne_date_deces=" + personne_date_deces + ", personne_code_postal_deces=" + personne_code_postal_deces + ", personne_ville_deces=" + personne_ville_deces + ", pere=" + pere + ", mere=" + mere + '}';
     }
 
     
@@ -160,7 +178,17 @@ public class Personne implements Serializable {
     
     
     
+    }
+
+
+    
+
+    
+
     
     
     
-}
+    
+    
+    
+

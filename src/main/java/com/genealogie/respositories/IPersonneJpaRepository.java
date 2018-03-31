@@ -17,5 +17,4 @@ import org.springframework.stereotype.Component;
 public interface IPersonneJpaRepository extends JpaRepository<Personne, Integer>{
 
     
-    
 }
